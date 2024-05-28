@@ -17,19 +17,17 @@ const I = {
 
 const L = {
   shape: [
-    [1, 0, 0, 0],
-    [1, 0, 0, 0],
-    [1, 0, 0, 0],
-    [1, 1, 0, 0],
+    [1, 0, 0],
+    [1, 0, 0],
+    [1, 1, 0],
   ],
   color: "orange",
 };
 const J = {
   shape: [
-    [0, 1, 0, 0],
-    [0, 1, 0, 0],
-    [0, 1, 0, 0],
-    [1, 1, 0, 0],
+    [0, 1, 0],
+    [0, 1, 0],
+    [1, 1, 0],
   ],
   color: "blue",
 };
@@ -139,6 +137,7 @@ export default function Tetris() {
         for (let j = 0; j < shape[i].length; j++) {
           const blockX = x + j;
           const blockY = y + i;
+          if (shape[i][j] && (blockX >= COLUMNS || blockX < 0)) return true;
           if (board[blockY]?.[blockX]) {
             const occupied = board[blockY][blockX] !== "black";
             if (shape[i][j] === 1) {
@@ -157,8 +156,9 @@ export default function Tetris() {
     let hitFloor = false;
 
     while (!hitFloor) {
-      pieceCopy.y++;
       hitFloor = intersects({ ...pieceCopy, y: pieceCopy.y + 1 });
+      if (hitFloor) break;
+      pieceCopy.y++;
     }
     return pieceCopy;
   }, [currentPiece, intersects]);
@@ -232,7 +232,7 @@ export default function Tetris() {
 
     for (let row = 0; row < newShape.length; row++) {
       for (let col = 0; col < newShape[row].length; col++) {
-        if (shape[col][row] === 1) newShape[shape.length - 1 - row][col] = 1;
+        if (shape[col][row] === 1) newShape[row][shape.length - 1 - col] = 1;
       }
     }
     const newPiece = { ...currentPiece, shape: newShape };
