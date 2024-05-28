@@ -1,0 +1,15 @@
+.Tetris .matrix {
+  display: flex;
+  flex-direction: column;
+}
+
+.Tetris .row {
+  display: flex;
+  flex-direction: row;
+}
+
+.Tetris .cell {
+  width: 10px;
+  height: 10px;
+  border: 10px inset;
+}
