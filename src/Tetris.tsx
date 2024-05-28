@@ -206,10 +206,10 @@ export default function Tetris() {
           x: currentPiece.x + right,
         })
       ) {
+        if (right !== 0 || down !== 1) return;
         addPiece();
         solidify(currentPiece);
         clearFilledLines();
-        return;
       }
 
       setCurrentPiece((prev) => ({
